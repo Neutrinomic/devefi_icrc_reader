@@ -1,0 +1,10 @@
+[package]
+name = "devefi_icrc_reader"
+version = "1.0.0"
+description = ""
+repository = ""
+keywords = [ ]
+license = "MIT"
+
+[dependencies]
+vector = "0.2.0"

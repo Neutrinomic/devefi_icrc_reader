@@ -1,8 +1,8 @@
 [package]
-name = "devefi_icrc_reader"
+name = "devefi-icrc-reader"
 version = "1.0.0"
-description = ""
-repository = ""
+description = "Read ICRC Ledger transaction log"
+repository = "https://github.com/Neutrinomic/devefi_icrc_reader"
 keywords = [ ]
 license = "MIT"
 

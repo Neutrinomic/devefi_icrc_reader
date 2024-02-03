@@ -32,7 +32,7 @@ module {
         ledger_id : Principal;
         start_from_block: {#id:Nat; #last};
         onError : (Text) -> (); // If error occurs during following and processing it will return the error
-        onCycle : (Nat64) -> (); // Measure performance of following and processing transactions. Returns instruction count
+        onCycleEnd : (Nat64) -> (); // Measure performance of following and processing transactions. Returns instruction count
         onRead : [Ledger.Transaction] -> ();
     }) {
 
@@ -100,7 +100,7 @@ module {
             };
 
             let inst_end = Prim.performanceCounter(1); // 1 is preserving with async
-            onCycle(inst_end - inst_start);
+            onCycleEnd(inst_end - inst_start);
         };
 
         private func cycle_shell() : async () {

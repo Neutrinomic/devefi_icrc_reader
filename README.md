@@ -7,7 +7,23 @@ mops add devefi_icrc_reader
 
 ## Usage
 ```motoko
-import DevefiIcrcReader "mo:devefi_icrc_reader";
+import IcrcReader "mo:devefi_icrc_reader";
 
-// example...
-```# devefi_icrc_reader
+
+stable let icrc_reader_mem = IcrcReader.Mem();
+let icrc_reader = IcrcReader.Reader({
+    mem = icrc_reader_mem;
+    ledger_id = Principal.fromText("mxzaz-hqaaa-aaaar-qaada-cai");
+    start_from_block = #last;
+    onError = func (e: Text) {}; // In case a cycle throws an error
+    onCycleEnd = func (instructions: Nat64) {}; // returns the instructions the cycle used. 
+                                                // It can include multiple calls to onRead
+    onRead = func (transactions: [IcrcReader.Transaction]) {
+        // do something here
+    };
+})
+
+icrc_reader.start();
+
+
+```

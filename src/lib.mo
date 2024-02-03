@@ -9,6 +9,7 @@ import Vector "mo:vector";
 import Prim "mo:⛔";
 
 module {
+    public type Transaction = Ledger.Transaction;
 
     public type Mem = {
             var last_indexed_tx : Nat;

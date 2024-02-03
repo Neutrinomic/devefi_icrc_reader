@@ -2,12 +2,12 @@
 
 ## Install
 ```
-mops add devefi_icrc_reader
+mops add devefi-icrc-reader
 ```
 
 ## Usage
 ```motoko
-import IcrcReader "mo:devefi_icrc_reader";
+import IcrcReader "mo:devefi-icrc-reader";
 
 
 stable let icrc_reader_mem = IcrcReader.Mem();

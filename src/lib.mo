@@ -13,7 +13,7 @@ module {
 
     public type Mem = {
             var last_indexed_tx : Nat;
-            var started: Bool;
+          
         };
 
     type TransactionUnordered = {
@@ -24,7 +24,7 @@ module {
     public func Mem() : Mem {
             return {
                 var last_indexed_tx = 0;
-                var started = false;
+               
             };
         };
 
@@ -36,11 +36,11 @@ module {
         onCycleEnd : (Nat64) -> (); // Measure performance of following and processing transactions. Returns instruction count
         onRead : [Ledger.Transaction] -> ();
     }) {
-
+        var started = false;
         let ledger = actor (Principal.toText(ledger_id)) : Ledger.Self;
 
         private func cycle() : async () {
-            if (not mem.started) return;
+            if (not started) return;
             let inst_start = Prim.performanceCounter(1); // 1 is preserving with async
 
             if (mem.last_indexed_tx == 0) {
@@ -112,16 +112,17 @@ module {
                 onError("cycle:" # Principal.toText(ledger_id) # ":" # Error.message(e));
             };
 
-            if (mem.started) ignore Timer.setTimer(#seconds 2, cycle_shell);
+            if (started) ignore Timer.setTimer(#seconds 2, cycle_shell);
         };
 
         public func start() {
-            mem.started := true;
-            ignore Timer.setTimer(#seconds 2, cycle_shell);
+            if (started) Debug.trap("already started");
+            started := true;
+            ignore Timer.setTimer(#seconds 2, cycle);
         };
 
         public func stop() {
-            mem.started := false;
+            started := false;
         }
     };
 

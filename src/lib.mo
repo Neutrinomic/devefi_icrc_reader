@@ -119,7 +119,7 @@ module {
         public func start() {
             if (started) Debug.trap("already started");
             started := true;
-            ignore Timer.setTimer(#seconds 2, cycle);
+            ignore Timer.setTimer(#seconds 2, cycle_shell);
         };
 
         public func stop() {
